@@ -3,6 +3,7 @@ package com.example.jh.a313115;
 public class UserData {
 
     private String kakaoID, kakaoName;
+    private int point;
     boolean first_login;
 
     public void setKakaoID(String kakaoID){
@@ -24,5 +25,12 @@ public class UserData {
     }
     public boolean getFirstLogin(){
         return this.first_login;
+    }
+
+    public void setPoint(int point){
+        this.point = point;
+    }
+    public int getPoint(){
+        return this.point;
     }
 }
