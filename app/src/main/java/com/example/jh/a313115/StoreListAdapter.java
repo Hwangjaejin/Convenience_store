@@ -13,9 +13,9 @@ import java.util.List;
 public class StoreListAdapter extends BaseAdapter{
 
     private Context context;
-    private List<StoreList> storeLists;
+    private List<Store> storeLists;
 
-    public StoreListAdapter(Context context, List<StoreList> storeLists){
+    public StoreListAdapter(Context context, List<Store> storeLists){
         this.context = context;
         this.storeLists = storeLists;
     }

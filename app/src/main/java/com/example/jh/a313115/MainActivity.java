@@ -25,7 +25,7 @@ public class MainActivity extends BaseActivity {
 
     private ListView listView;
     private StoreListAdapter adapter;
-    private List<StoreList> storeLists;
+    private List<Store> storeLists;
 
     Button myinfo_btn;
     @Override
@@ -39,7 +39,7 @@ public class MainActivity extends BaseActivity {
         new BackgroundTask().execute();
 
         listView = (ListView)findViewById(R.id.list_view);
-        storeLists = new ArrayList<StoreList>();
+        storeLists = new ArrayList<Store>();
 
         adapter = new StoreListAdapter(getApplicationContext(),storeLists);
         listView.setAdapter(adapter);
@@ -112,7 +112,7 @@ public class MainActivity extends BaseActivity {
                     store_name = object.getString("Name");
                     store_address = object.getString("Address");
 
-                    StoreList storeList = new StoreList(store_name,store_address);
+                    Store storeList = new Store(store_name,store_address);
                     storeLists.add(storeList);
                     count++;
                 }

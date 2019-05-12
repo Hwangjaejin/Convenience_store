@@ -1,10 +1,10 @@
 package com.example.jh.a313115;
 
-public class StoreList {
+public class Store {
     String store_name;
     String store_address;
 
-    public StoreList(String store_name, String store_address) {
+    public Store(String store_name, String store_address) {
         this.store_name = store_name;
         this.store_address = store_address;
     }

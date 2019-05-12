@@ -82,7 +82,6 @@ public class LoginActivity extends BaseActivity {
 
         @Override
         public void onSessionOpened() {
-
             UserManagement.getInstance().requestMe(new MeResponseCallback() {
                 // 세션 오픈 실패. 세션이 삭제된 경우,
                 @Override
@@ -129,6 +128,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     public void kakaoLogin(){
+        //btn_kakao_login.performClick();
         callback = new SessionCallback();
         Session.getCurrentSession().addCallback(callback);
         Session.getCurrentSession().checkAndImplicitOpen();
