@@ -2,4 +2,7 @@
     <string name="app_name">C마켓</string>
     //카카오 네이티브앱 키
     <string name="kakao_app_key">cb9da2977df00451829402a4ea6a0281</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

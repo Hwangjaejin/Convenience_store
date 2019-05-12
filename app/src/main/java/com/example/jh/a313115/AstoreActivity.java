@@ -1,18 +1,14 @@
 package com.example.jh.a313115;
 
-import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -25,55 +21,43 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity {
+public class AstoreActivity extends BaseActivity {
 
     private ListView listView;
-    private StoreListAdapter adapter;
-    private List<Store> storeLists;
-    private List<Store> saveLists;
-    final int Astore = 1;
-    final int Bstore = 0;
-    Button myinfo_btn;
+    private ProductListAdapter adapter;
+    private List<Product> productLists;
+    private List<Product> saveLists;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_astore);
 
-        myinfo_btn = (Button)findViewById(R.id.myinfo_btn);
-        myinfo_btn.setOnClickListener(this);
-
-        new BackgroundTask().execute(); //BackgroundTask class 실행
+        Handler delayHandler = new Handler();
+        new BackgroundTask().execute();
 
         listView = (ListView)findViewById(R.id.list_view);
-        storeLists = new ArrayList<Store>();
-        saveLists = new ArrayList<Store>();
+        productLists = new ArrayList<Product>();
+        saveLists = new ArrayList<Product>();
 
-        adapter = new StoreListAdapter(getApplicationContext(),storeLists,this,saveLists);
-        listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        adapter = new ProductListAdapter(getApplicationContext(),productLists,saveLists);
+        delayHandler.postDelayed(new Runnable() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                if(storeLists.get(position).getStore_name().equals("Bstore")){
-                    Intent mainActivity = new Intent(MainActivity.this,BstoreActivity.class);
-                    startActivity(mainActivity);
-                }else if(storeLists.get(position).getStore_name().equals("Astore")){
-                    Intent mainActivity = new Intent(MainActivity.this,AstoreActivity.class);
-                    startActivity(mainActivity);
-                }
+            public void run() {
+                listView.setAdapter(adapter);
             }
-        });
+        },100);
 
-        EditText search = (EditText)findViewById(R.id.search_store);
+        EditText search = (EditText)findViewById(R.id.search_product);
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
 
-            @Override //Text가 바뀔때마다 실행되는 함수
+            @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                searchStore(charSequence.toString());
+                searchProduct(charSequence.toString());
             }
 
             @Override
@@ -83,32 +67,12 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-    @Override
-    public void onClick(View v){
-        int id = v.getId();
-        switch (id){
-            case R.id.myinfo_btn:
-                goMyinfoActivity();
-                break;
-        }
-    }
-    @Override
-    public void onBackPressed(){
-        super.onBackPressed();
-        getUserData().setFirstLogin(true);
-    }
-
-    public void goMyinfoActivity(){
-        Intent myinfoActivity = new Intent(MainActivity.this,MyinfoActivity.class);
-        startActivity(myinfoActivity);
-    }
-
-    class BackgroundTask extends AsyncTask<Void, Void, String>{
+    class BackgroundTask extends AsyncTask<Void, Void, String> {
         String target;
 
         @Override
         protected void onPreExecute(){
-            target = "http://jaejindb.cafe24.com/List.php";
+            target = "http://jaejindb.cafe24.com/AstoreItem.php";
         }
 
         @Override
@@ -144,15 +108,17 @@ public class MainActivity extends BaseActivity {
                 JSONObject jsonObject = new JSONObject(result);
                 JSONArray jsonArray = jsonObject.getJSONArray("response");
                 int count = 0;
-                String store_name, store_address;
+                String product_name;
+                int price, stockAmount;
                 while(count < jsonArray.length()){
                     JSONObject object = jsonArray.getJSONObject(count);
-                    store_name = object.getString("Name");
-                    store_address = object.getString("Address");
+                    product_name = object.getString("Name");
+                    price = object.getInt("Price");
+                    stockAmount = object.getInt("Stock");
 
-                    Store storeList = new Store(store_name,store_address);
-                    storeLists.add(storeList);
-                    saveLists.add(storeList);
+                    Product productList = new Product(product_name, stockAmount);
+                    productLists.add(productList);
+                    saveLists.add(productList);
                     count++;
                 }
             }catch (Exception e){
@@ -160,12 +126,11 @@ public class MainActivity extends BaseActivity {
             }
         }
     }
-
-    public void searchStore(String search){
-        storeLists.clear();
+    public void searchProduct(String search){
+        productLists.clear();
         for(int i = 0; i < saveLists.size(); i++){
-            if(saveLists.get(i).getStore_name().contains(search)){
-                storeLists.add(saveLists.get(i));
+            if(saveLists.get(i).getProduct_name().contains(search)){
+                productLists.add(saveLists.get(i));
             }
         }
         adapter.notifyDataSetChanged();

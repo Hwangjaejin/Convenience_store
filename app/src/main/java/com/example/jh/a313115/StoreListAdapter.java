@@ -1,6 +1,8 @@
 package com.example.jh.a313115;
 
+import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -14,10 +16,12 @@ public class StoreListAdapter extends BaseAdapter{
 
     private Context context;
     private List<Store> storeLists;
+    private List<Store> saveLists;
 
-    public StoreListAdapter(Context context, List<Store> storeLists){
+    public StoreListAdapter(Context context, List<Store> storeLists, Activity parentActivity, List<Store> saveLists){
         this.context = context;
         this.storeLists = storeLists;
+        this.saveLists = saveLists;
     }
 
     @Override
