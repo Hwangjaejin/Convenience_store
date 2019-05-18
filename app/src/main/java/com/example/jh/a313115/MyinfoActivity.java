@@ -1,10 +1,12 @@
 package com.example.jh.a313115;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -39,6 +41,14 @@ public class MyinfoActivity extends BaseActivity {
     }
 
     @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        Intent mainActivity = new Intent(MyinfoActivity.this,MainActivity.class);
+        mainActivity.putExtra("point",preferences.getInt("point",0));
+        startActivity(mainActivity);
+    }
+
+    @Override
     public void onClick(View v){
         int id = v.getId();
         switch (id){
@@ -52,10 +62,11 @@ public class MyinfoActivity extends BaseActivity {
 
     public void chargePoint(){
         AlertDialog.Builder dialog = new AlertDialog.Builder(MyinfoActivity.this);
-        dialog.setTitle("포입트충전");
+        dialog.setTitle("포인트충전");
         dialog.setMessage("충전할 금액을 입력해주세요");
 
         final EditText point_edit = new EditText(MyinfoActivity.this);
+        point_edit.setInputType(InputType.TYPE_CLASS_NUMBER);
         dialog.setView(point_edit);
 
         dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {

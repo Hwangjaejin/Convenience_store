@@ -5,13 +5,13 @@ import android.view.View;
 
 public class BaseActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private static UserData userData;
+    private static Customer userData;
 
     public static void createUserData() {
-        userData = new UserData();
+        userData = new Customer();
     }
 
-    public UserData getUserData() {
+    public Customer getUserData() {
         return userData;
     }
     @Override

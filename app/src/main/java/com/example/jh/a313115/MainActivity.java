@@ -1,6 +1,7 @@
 package com.example.jh.a313115;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,6 +28,8 @@ import java.util.List;
 
 public class MainActivity extends BaseActivity {
 
+    SharedPreferences preferences;
+    Intent intent;
     private ListView listView;
     private StoreListAdapter adapter;
     private List<Store> storeLists;
@@ -39,10 +42,16 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        new BackgroundTask().execute(); //BackgroundTask class 실행
+
+        preferences = getSharedPreferences("point",MODE_PRIVATE);
+
+        getUserData().setPoint(preferences.getInt("point",0));
+
         myinfo_btn = (Button)findViewById(R.id.myinfo_btn);
         myinfo_btn.setOnClickListener(this);
 
-        new BackgroundTask().execute(); //BackgroundTask class 실행
+
 
         listView = (ListView)findViewById(R.id.list_view);
         storeLists = new ArrayList<Store>();

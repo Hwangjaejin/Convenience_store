@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,18 +11,37 @@
 
     <TextView
         android:id="@+id/product_name"
+        android:layout_width="273dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_weight="1"
+        android:text="물건 이름"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/product_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/store_address"
-        android:text="물건 이름"
-        android:textSize="30dp"
-        android:layout_weight="1"/>
+        android:layout_below="@+id/product_name"
+        android:text="물건 가격"
+        android:textSize="30dp" />
 
-    <Button
+    <TextView
+        android:id="@+id/product_stock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="구매"
-        android:id="@+id/buy_btn"/>
+        android:layout_alignEnd="@+id/product_name"
+        android:layout_below="@+id/product_name"
+        android:text="재고 수"
+        android:textSize="30dp" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/buy_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/product_name"
+        android:text="구매" />
+
+</RelativeLayout>

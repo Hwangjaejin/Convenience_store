@@ -1,6 +1,6 @@
 package com.example.jh.a313115;
 
-public class UserData {
+public class Customer {
 
     private String kakaoID, kakaoName;
     private int point;

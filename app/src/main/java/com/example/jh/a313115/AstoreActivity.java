@@ -1,5 +1,6 @@
 package com.example.jh.a313115;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,8 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -25,8 +28,10 @@ public class AstoreActivity extends BaseActivity {
 
     private ListView listView;
     private ProductListAdapter adapter;
+    private List<ProductDescription> productDescriptionLists;
+    private List<ProductDescription> saveLists;
     private List<Product> productLists;
-    private List<Product> saveLists;
+    private List<Product> saveLists2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,16 +42,24 @@ public class AstoreActivity extends BaseActivity {
         new BackgroundTask().execute();
 
         listView = (ListView)findViewById(R.id.list_view);
+        productDescriptionLists = new ArrayList<ProductDescription>();
+        saveLists = new ArrayList<ProductDescription>();
         productLists = new ArrayList<Product>();
-        saveLists = new ArrayList<Product>();
+        saveLists2 = new ArrayList<Product>();
 
-        adapter = new ProductListAdapter(getApplicationContext(),productLists,saveLists);
+        adapter = new ProductListAdapter(getApplicationContext(),productDescriptionLists,saveLists,productLists,saveLists2);
         delayHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 listView.setAdapter(adapter);
             }
         },100);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Log.d("jaejin",position+"");
+            }
+        });
 
         EditText search = (EditText)findViewById(R.id.search_product);
         search.addTextChangedListener(new TextWatcher() {
@@ -116,9 +129,14 @@ public class AstoreActivity extends BaseActivity {
                     price = object.getInt("Price");
                     stockAmount = object.getInt("Stock");
 
-                    Product productList = new Product(product_name, stockAmount);
+                    ProductDescription productDescriptionList = new ProductDescription(product_name, price);
+                    Product productList = new Product(stockAmount);
+
+                    productDescriptionLists.add(productDescriptionList);
+                    saveLists.add(productDescriptionList);
+
                     productLists.add(productList);
-                    saveLists.add(productList);
+                    saveLists2.add(productList);
                     count++;
                 }
             }catch (Exception e){
@@ -127,10 +145,12 @@ public class AstoreActivity extends BaseActivity {
         }
     }
     public void searchProduct(String search){
+        productDescriptionLists.clear();
         productLists.clear();
         for(int i = 0; i < saveLists.size(); i++){
             if(saveLists.get(i).getProduct_name().contains(search)){
-                productLists.add(saveLists.get(i));
+                productDescriptionLists.add(saveLists.get(i));
+                productLists.add(saveLists2.get(i));
             }
         }
         adapter.notifyDataSetChanged();

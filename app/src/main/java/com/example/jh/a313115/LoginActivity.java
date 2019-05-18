@@ -128,7 +128,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     public void kakaoLogin(){
-        //btn_kakao_login.performClick();
+        btn_kakao_login.performClick();
         callback = new SessionCallback();
         Session.getCurrentSession().addCallback(callback);
         Session.getCurrentSession().checkAndImplicitOpen();
