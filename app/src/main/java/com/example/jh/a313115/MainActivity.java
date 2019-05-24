@@ -45,7 +45,6 @@ public class MainActivity extends BaseActivity {
         new BackgroundTask().execute(); //BackgroundTask class 실행
 
         preferences = getSharedPreferences("point",MODE_PRIVATE);
-
         getUserData().setPoint(preferences.getInt("point",0));
 
         myinfo_btn = (Button)findViewById(R.id.myinfo_btn);

@@ -1,5 +1,14 @@
 package com.example.jh.a313115;
 
+import android.util.Log;
+import android.widget.Toast;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONObject;
+
 public class Customer {
 
     private String kakaoID, kakaoName;
@@ -33,4 +42,5 @@ public class Customer {
     public int getPoint(){
         return this.point;
     }
+
 }

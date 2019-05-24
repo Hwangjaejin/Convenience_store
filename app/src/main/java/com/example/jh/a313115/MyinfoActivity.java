@@ -17,7 +17,7 @@ public class MyinfoActivity extends BaseActivity {
 
     TextView nameText, pointText;
     Button point_btn, purchaseList_btn;
-    SharedPreferences preferences;
+
     private int point;
 
     @Override

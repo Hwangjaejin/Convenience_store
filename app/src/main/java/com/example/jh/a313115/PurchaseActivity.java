@@ -1,6 +1,7 @@
 package com.example.jh.a313115;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,6 +12,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONObject;
 
 public class PurchaseActivity extends BaseActivity {
 
@@ -23,6 +30,7 @@ public class PurchaseActivity extends BaseActivity {
     TextView text_point;
     private int total_count;
     private int total_cost;
+    private int myPoint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +38,7 @@ public class PurchaseActivity extends BaseActivity {
         setContentView(R.layout.activity_purchase);
 
         intent = getIntent();
+        preferences = getSharedPreferences("point",MODE_PRIVATE);
 
         product_name = intent.getStringExtra("name");
         product_price = intent.getIntExtra("price",0);
@@ -49,7 +58,8 @@ public class PurchaseActivity extends BaseActivity {
         edit_arriveTime = (EditText)findViewById(R.id.edit_arriveTime);
         text_point = (TextView) findViewById(R.id.text_point);
 
-        text_point.setText(getUserData().getPoint()+"원");
+        myPoint = getUserData().getPoint();
+        text_point.setText(myPoint+"원");
         totalcost.setText("총 금액 : "+product_price+'원');
         edit_count.addTextChangedListener(new TextWatcher() {
             @Override
@@ -95,6 +105,34 @@ public class PurchaseActivity extends BaseActivity {
             Toast.makeText(getApplicationContext(), "1개 이상 선택하세요",Toast.LENGTH_LONG).show();
         }else if(total_cost > getUserData().getPoint()){
             Toast.makeText(getApplicationContext(), "포인트가 부족합니다",Toast.LENGTH_LONG).show();
+        }else {
+            Response.Listener<String> responseListener = new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        boolean success = jsonObject.getBoolean("success");
+                        if(success){
+                            myPoint = myPoint - total_cost;
+                            getUserData().setPoint(myPoint);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putInt("point",getUserData().getPoint());
+                            editor.commit();
+
+                            Intent mainActivity = new Intent(PurchaseActivity.this,MainActivity.class);
+                          //  mainActivity.putExtra("point",preferences.getInt("point",0));
+                            startActivity(mainActivity);
+                        }
+                    }
+                    catch (Exception e){
+                        Log.d("jaejin","update fail");
+                        e.printStackTrace();
+                    }
+                }
+            };
+            UpdateRequest updateRequest = new UpdateRequest(edit_count.getText().toString(), product_name, responseListener);
+            RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+            queue.add(updateRequest);
         }
     }
 
