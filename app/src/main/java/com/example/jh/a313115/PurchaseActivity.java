@@ -49,6 +49,7 @@ public class PurchaseActivity extends BaseActivity {
         context = this;
 
         customer = new Customer();
+        purchase = new Purchase(this);
         intent = getIntent();
         preferences = getSharedPreferences("point",MODE_PRIVATE);
         pref = getSharedPreferences("itemlist",MODE_PRIVATE);

@@ -24,7 +24,7 @@ public class PurchasesLineItemActivity extends BaseActivity {
     String name;
     String price;
     ProductDescription productDescription;
-    Purchase purchase;
+    private Purchase purchase;
     int totalCost;
     private int myPoint;
     boolean isFirstResponse;
