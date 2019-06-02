@@ -2,19 +2,11 @@ package com.example.jh.a313115;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 
-import com.kakao.auth.AuthType;
-import com.kakao.auth.ErrorCode;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
 import com.kakao.network.ErrorResult;
@@ -25,8 +17,7 @@ import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.exception.KakaoException;
 import com.kakao.util.helper.log.Logger;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 
 public class LoginActivity extends BaseActivity {
     String TAG = "LoginActivity";
@@ -47,6 +38,7 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
 
         createUserData();
+        createPointData();
         getUserData().setFirstLogin(true);
 
         btn_kakao_login = (LoginButton) findViewById(R.id.btn_kakao);
@@ -137,8 +129,8 @@ public class LoginActivity extends BaseActivity {
         kakao_name = preferences.getString("name","");
         kakao_id = preferences.getLong("id",0);
 
-        getUserData().setKakaoName(kakao_name);
-        getUserData().setKakaoID(kakao_id+"");
+        getUserData().setcustomerName(kakao_name);
+        getUserData().setcustomerID(kakao_id+"");
 
         Intent mainActivity = new Intent(LoginActivity.this,MainActivity.class);
         startActivity(mainActivity);

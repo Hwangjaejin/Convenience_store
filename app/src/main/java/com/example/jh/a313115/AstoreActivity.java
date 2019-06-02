@@ -28,6 +28,7 @@ public class AstoreActivity extends BaseActivity {
 
     private ListView listView;
     private ProductListAdapter adapter;
+    private PurshasesLineItem purshasesLineItem;
     private List<ProductDescription> productDescriptionLists;
     private List<ProductDescription> saveLists;
     private List<Product> productLists;
@@ -60,7 +61,6 @@ public class AstoreActivity extends BaseActivity {
                 Log.d("jaejin",position+"");
             }
         });
-
         EditText search = (EditText)findViewById(R.id.search_product);
         search.addTextChangedListener(new TextWatcher() {
             @Override
@@ -134,7 +134,6 @@ public class AstoreActivity extends BaseActivity {
 
                     productDescriptionLists.add(productDescriptionList);
                     saveLists.add(productDescriptionList);
-
                     productLists.add(productList);
                     saveLists2.add(productList);
                     count++;
@@ -144,6 +143,12 @@ public class AstoreActivity extends BaseActivity {
             }
         }
     }
+    @Override
+    public void onPause(){
+        super.onPause();
+        finish();
+    }
+
     public void searchProduct(String search){
         productDescriptionLists.clear();
         productLists.clear();

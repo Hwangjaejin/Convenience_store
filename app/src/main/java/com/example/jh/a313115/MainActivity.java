@@ -3,7 +3,6 @@ package com.example.jh.a313115;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -37,20 +35,18 @@ public class MainActivity extends BaseActivity {
     final int Astore = 1;
     final int Bstore = 0;
     Button myinfo_btn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         new BackgroundTask().execute(); //BackgroundTask class 실행
-
         preferences = getSharedPreferences("point",MODE_PRIVATE);
-        getUserData().setPoint(preferences.getInt("point",0));
+        getPointData().setPoint(preferences.getInt("point",0));
 
         myinfo_btn = (Button)findViewById(R.id.myinfo_btn);
         myinfo_btn.setOnClickListener(this);
-
-
 
         listView = (ListView)findViewById(R.id.list_view);
         storeLists = new ArrayList<Store>();

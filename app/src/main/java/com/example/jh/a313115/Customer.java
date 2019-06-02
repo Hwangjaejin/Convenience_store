@@ -1,5 +1,6 @@
 package com.example.jh.a313115;
 
+import android.app.Application;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -9,24 +10,25 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
+import java.util.List;
+
 public class Customer {
-
-    private String kakaoID, kakaoName;
-    private int point;
+    private String customerID, customerName;
     boolean first_login;
+    public int first_lineItems;
 
-    public void setKakaoID(String kakaoID){
-        this.kakaoID = kakaoID;
+    public void setcustomerID(String kakaoID){
+        this.customerID = kakaoID;
     }
     public String getKakaoID(){
-        return this.kakaoID;
+        return this.customerID;
     }
 
-    public void setKakaoName(String kakaoName){
-        this.kakaoName = kakaoName;
+    public void setcustomerName(String kakaoName){
+        this.customerName = kakaoName;
     }
-    public String getKakaoName(){
-        return this.kakaoName;
+    public String getcustomerName(){
+        return this.customerName;
     }
 
     public void setFirstLogin(boolean first_login){
@@ -36,11 +38,11 @@ public class Customer {
         return this.first_login;
     }
 
-    public void setPoint(int point){
-        this.point = point;
+    public void setFirst_lineItems(int first_lineItems){
+        this.first_lineItems = first_lineItems;
     }
-    public int getPoint(){
-        return this.point;
+    public int getFirst_lineItems(){
+        return this.first_lineItems;
     }
 
 }

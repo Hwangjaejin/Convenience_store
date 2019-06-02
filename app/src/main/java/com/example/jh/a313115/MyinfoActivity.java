@@ -4,10 +4,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,8 +16,6 @@ public class MyinfoActivity extends BaseActivity {
     TextView nameText, pointText;
     Button point_btn, purchaseList_btn;
 
-    private int point;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +24,7 @@ public class MyinfoActivity extends BaseActivity {
         preferences = getSharedPreferences("point",MODE_PRIVATE);
 
         nameText = (TextView)findViewById(R.id.nameText);
-        nameText.setText("안녕하세요 "+getUserData().getKakaoName()+"님!");
+        nameText.setText("안녕하세요 "+getUserData().getcustomerName()+"님!");
 
         point_btn = (Button)findViewById(R.id.point_btn);
         point_btn.setOnClickListener(this);
@@ -76,9 +72,9 @@ public class MyinfoActivity extends BaseActivity {
                 SharedPreferences.Editor editor = preferences.edit();
 
                 String value = point_edit.getText().toString();
-                getUserData().setPoint(preferences.getInt("point",0)+Integer.parseInt(value));
+                getPointData().setPoint(preferences.getInt("point",0)+Integer.parseInt(value));
 
-                editor.putInt("point",getUserData().getPoint());
+                editor.putInt("point",getPointData().getPoint());
                 editor.commit();
 
                 pointText.setText(preferences.getInt("point",0)+"원");
@@ -97,6 +93,7 @@ public class MyinfoActivity extends BaseActivity {
     }
 
     public void showPurchaseList(){
-
+        Intent purchasesLineItemActivity = new Intent(MyinfoActivity.this,PurchasesLineItemActivity.class);
+        startActivity(purchasesLineItemActivity);
     }
 }

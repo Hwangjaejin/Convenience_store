@@ -29,4 +29,14 @@
         android:text="Kakao Login"
         android:textSize="20dp"/>
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="118dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="51dp"
+        android:text="로그인화면"
+        android:textSize="50dp" />
+
 </RelativeLayout>

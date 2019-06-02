@@ -22,4 +22,28 @@ public class ProductDescription {
     public void setPrice(int price){
         this.price = price;
     }
+    public int getProductPrice(String name){
+        if(name.equals("apple"))
+            return 3900;
+        else if(name.equals("banana"))
+            return 5000;
+        else if(name.equals("banana milk"))
+            return 2000;
+        else if(name.equals("beef"))
+            return 2000;
+        else if(name.equals("bread"))
+            return 400;
+        else if(name.equals("chicken"))
+            return 200;
+        else if(name.equals("gum"))
+            return 100;
+        else if(name.equals("milk"))
+            return 2000;
+        else if(name.equals("pork"))
+            return 300;
+        else if(name.equals("snack"))
+            return 3000;
+        else
+            return 11;
+    }
 }

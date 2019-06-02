@@ -96,7 +96,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="58dp"
-        android:text="구매" />
+        android:text="예약" />
 
     <TextView
         android:id="@+id/totalcost"

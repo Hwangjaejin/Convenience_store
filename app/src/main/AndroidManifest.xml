@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity" />
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
@@ -28,7 +28,8 @@
         <activity android:name=".MyinfoActivity" />
         <activity android:name=".AstoreActivity" />
         <activity android:name=".BstoreActivity" />
-        <activity android:name=".PurchaseActivity"></activity>
+        <activity android:name=".PurchaseActivity" />
+        <activity android:name=".PurchasesLineItemActivity"></activity>
     </application>
 
 </manifest>

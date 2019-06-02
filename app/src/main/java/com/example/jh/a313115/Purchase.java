@@ -1,20 +1,23 @@
 package com.example.jh.a313115;
 
+import android.content.Context;
+
 public class Purchase {
     int arriveTime;
     int purchaseTime;
     int purchaseTotal;
 
-    public Purchase(int purchaseTime, int purchaseTotal){
-        this.purchaseTime = purchaseTime;
-        this.purchaseTotal = purchaseTotal;
+    private Context mContext;
+    public Purchase(Context context){
+        super();
+        this.mContext = context;
     }
 
-    public int getPurchaseTime(){
-        return purchaseTime;
+    public int getArriveTime(){
+        return arriveTime;
     }
-    public void setPurchaseTime(int purchaseTime){
-        this.purchaseTime = purchaseTime;
+    public void setArriveTime(int arriveTime){
+        this.arriveTime = arriveTime;
     }
 
     public int getPurchaseTotal(){
@@ -23,4 +26,8 @@ public class Purchase {
     public void setPurchaseTotal(int purchaseTotal){
         this.purchaseTotal = purchaseTotal;
     }
+
+//    public void payPoint(){
+//        ((PurchaseActivity) mContext).buy_button();
+//    }
 }
